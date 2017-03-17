@@ -16,6 +16,7 @@ function complete()
 		images[i].ondragend = dragEnd;
 	}
 	contentDrop.ondrop = droped;
+	contentDrop.ondragover = allowDrop;
 }
 function moveImages(e)
 {
@@ -25,9 +26,10 @@ function moveImages(e)
 }
 function droped(e,ui)
 {
+	e.preventDefault();
 	console.log("==============================");
 	console.log(e);
-	console.log(ui);
+	console.log(this.offsetTop);
 	console.log("==============================");
 }
 function dragEnd(e,ui)
@@ -49,8 +51,11 @@ function dragStart()
 {
 	console.log(this);
 }
-function allowDrop(event)
+function allowDrop(event,ui)
 {
 	event.preventDefault();
+	console.log(event);
+	console.log(1);
+	console.log(ui);
 	//console.log("Deja");
 }
