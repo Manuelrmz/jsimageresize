@@ -14,6 +14,7 @@
 		overflow: hidden;
 		margin:0 auto;
 	}
+	#content{height: inherit; width:inherit; position: relative;}
 	.square-resize{
 	    width: 8px;
 	    height: 8px;
@@ -21,7 +22,7 @@
 	    border: 1px solid #fff;
 	    position: absolute;
 	}
-	.resize-content{position: inherit; width:100%; height: 100%;}
+	.resize-content{width:400px; height: 400px;}
 	.square-border{
 		border: 1px solid #0096fd;
 	    background: transparent;
@@ -39,9 +40,8 @@
 </head>
 <body>
 	<div id="contentDrop">
-		<div id="content">
-			<div class="resize-content" style="top:10px; left:10px;">
-				<div class="square-border" style="width:400px; height:400px;"></div>
+		<div id="content" ondragover = "allowDrop(event)">
+			<div class="resize-content square-border" draggable="true">
 				<div class="square-resize square-resize-n"></div>
 				<div class="square-resize square-resize-e"></div>
 				<div class="square-resize square-resize-w"></div>
