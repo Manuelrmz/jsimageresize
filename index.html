@@ -21,8 +21,9 @@
 	    background-color: #0096fd;
 	    border: 1px solid #fff;
 	    position: absolute;
+	    z-index: 101;
 	}
-	.resize-content{width:400px; height: 400px;}
+	.resize-content{width:400px; height: 400px; cursor:move;}
 	.square-border{
 		border: 1px solid #0096fd;
 	    background: transparent;
@@ -40,7 +41,7 @@
 </head>
 <body>
 	<div id="contentDrop">
-		<div id="content" ondragover = "allowDrop(event)">
+		<div id="content">
 			<div class="resize-content square-border" draggable="true">
 				<div class="square-resize square-resize-n"></div>
 				<div class="square-resize square-resize-e"></div>
@@ -53,6 +54,5 @@
 			</div>
 		</div>
 	</div>
-	
 </body>
 </html>
