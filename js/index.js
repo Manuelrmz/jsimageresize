@@ -1,42 +1,59 @@
 window.onload = complete;
-var maincontainter = null;
-var images = null;
 var x = null;
 var y = null;
-var offset_data;
+var startX = null;
+var startY = null;
+var contentDrop = null;
+var resizableContent = null;
+var offset_data = null;
 function complete()
 {
-	//maincontainter = document.getElementById('contentDrop');
+	resizableContent = document.getElementsByClassName("resize-content")[0];	
 	contentDrop = document.getElementById('content');
-	images = contentDrop.getElementsByClassName ('resize-content');
-	for(var i = 0; i < images.length ; i++)
-	{
-		images[i].ondragstart = dragStart;
-		images[i].ondrag = dragging;
-		images[i].ondragend = dragEnd;
-	}
-	content.ondragover = allowDrop;
-	contentDrop.addEventListener('drop',droped,false); 
+	resizableContent.ondragstart = dragStart;
+	resizableContent.ondrag = dragging;
+	resizableContent.ondragend = dragEnd;
+	contentDrop.ondragover = allowDrop;
+	contentDrop.ondrop = droped;
+	document.getElementsByClassName('square-resize-sw')[0].addEventListener('mousedown', southeastresize, false);
+}
+function southeastresize(e)
+{
+	startX = e.clientX;
+	startY = e.clientY;
+	startWidth = parseInt(document.defaultView.getComputedStyle('resize-content').width, 10);
+	startHeight = parseInt(document.defaultView.getComputedStyle('resize-content').height, 10);
+	document.documentElement.addEventListener('mousemove', resizeObject, false);
+	document.documentElement.addEventListener('mouseup', stopResizingObject, false);
+	console.log("1");
+}
+function resizeObject(e)
+{
+	resizableContent.style.width = (startWidth + e.clientX - startX) + 'px';
+	resizableContent.style.height = (startHeight + e.clientY - startY) + 'px';
+	console.log("2");
+}
+function stopResizingObject(e)
+{
+	document.documentElement.removeEventListener('mousemove', doDrag, false);    
+	document.documentElement.removeEventListener('mouseup', stopDrag, false);
+	console.log("3");
 }
 function dragStart(event)
 {
 	var style = window.getComputedStyle(event.target, null);
 	offset_data = (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY);
 	event.dataTransfer.setData("text/plain",offset_data);
-	event.target.style.cursor = 'move';
 }
 function dragging(event)
 {
 	console.log("eco");
-	event.target.style.cursor = 'move'; 
 }
 function droped(event)
 {
-	console.log(event);
 	var offset;
 	try 
 	{
-		console.log(event.dataTransfer.getData("text/plain"));
 		offset = event.dataTransfer.getData("text/plain").split(',');
 	} 
 	catch(e) 
