@@ -10,21 +10,21 @@ function complete()
 {
 	resizableContent = document.getElementsByClassName("resize-content")[0];	
 	contentDrop = document.getElementById('content');
-	resizableContent.ondragstart = dragStart;
-	resizableContent.ondrag = dragging;
-	resizableContent.ondragend = dragEnd;
-	contentDrop.ondragover = allowDrop;
-	contentDrop.ondrop = droped;
-	document.getElementsByClassName('square-resize-sw')[0].addEventListener('mousedown', southeastresize, false);
+	//resizableContent.ondragstart = dragStart;
+	//resizableContent.ondrag = dragging;
+	//resizableContent.ondragend = dragEnd;
+	//contentDrop.ondragover = allowDrop;
+	//contentDrop.ondrop = droped;
+	document.getElementsByClassName('square-resize-se')[0].addEventListener('mousedown', southeastresize);
 }
 function southeastresize(e)
 {
 	startX = e.clientX;
 	startY = e.clientY;
-	startWidth = parseInt(document.defaultView.getComputedStyle('resize-content').width, 10);
-	startHeight = parseInt(document.defaultView.getComputedStyle('resize-content').height, 10);
-	document.documentElement.addEventListener('mousemove', resizeObject, false);
-	document.documentElement.addEventListener('mouseup', stopResizingObject, false);
+	startWidth = parseInt(document.defaultView.getComputedStyle(resizableContent,null).width, 10);
+	startHeight = parseInt(document.defaultView.getComputedStyle(resizableContent,null).height, 10);
+	document.documentElement.addEventListener('mousemove', resizeObject);
+	document.documentElement.addEventListener('mouseup', stopResizingObject);
 	console.log("1");
 }
 function resizeObject(e)
@@ -35,8 +35,8 @@ function resizeObject(e)
 }
 function stopResizingObject(e)
 {
-	document.documentElement.removeEventListener('mousemove', doDrag, false);    
-	document.documentElement.removeEventListener('mouseup', stopDrag, false);
+	document.documentElement.removeEventListener('mousemove', resizeObject);    
+	document.documentElement.removeEventListener('mouseup', stopResizingObject);
 	console.log("3");
 }
 function dragStart(event)
@@ -47,7 +47,7 @@ function dragStart(event)
 }
 function dragging(event)
 {
-	console.log("eco");
+	event.preventDefault();
 }
 function droped(event)
 {
