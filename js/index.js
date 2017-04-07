@@ -11,10 +11,15 @@ function complete()
 	resizableContent = document.getElementsByClassName("resize-content")[0];	
 	contentDrop = document.getElementById('content');
 	//resizableContent.ondragstart = dragStart;
+	resizableContent.addEventListener("dragstart",dragStart);
 	//resizableContent.ondrag = dragging;
+	resizableContent.addEventListener("drag",dragging);
 	//resizableContent.ondragend = dragEnd;
+	resizableContent.addEventListener("dragend",dragEnd);
 	//contentDrop.ondragover = allowDrop;
+	contentDrop.addEventListener("dragover",allowDrop);
 	//contentDrop.ondrop = droped;
+	contentDrop.addEventListener("drop",droped);
 	document.getElementsByClassName('square-resize-se')[0].addEventListener('mousedown', southeastresize);
 }
 function southeastresize(e)
@@ -25,6 +30,12 @@ function southeastresize(e)
 	startHeight = parseInt(document.defaultView.getComputedStyle(resizableContent,null).height, 10);
 	document.documentElement.addEventListener('mousemove', resizeObject);
 	document.documentElement.addEventListener('mouseup', stopResizingObject);
+	resizableContent.removeEventListener("dragstart",dragStart);
+	resizableContent.removeEventListener("drag",dragging);
+	resizableContent.removeEventListener("dragend",dragEnd);
+	contentDrop.removeEventListener("dragover",allowDrop);
+	contentDrop.removeEventListener("drop",droped);
+	//console.log(document.documentElement);
 	console.log("1");
 }
 function resizeObject(e)
@@ -37,6 +48,11 @@ function stopResizingObject(e)
 {
 	document.documentElement.removeEventListener('mousemove', resizeObject);    
 	document.documentElement.removeEventListener('mouseup', stopResizingObject);
+	resizableContent.addEventListener("dragstart",dragStart);
+	resizableContent.addEventListener("drag",dragging);
+	resizableContent.addEventListener("dragend",dragEnd);
+	contentDrop.addEventListener("dragover",allowDrop);
+	contentDrop.addEventListener("drop",droped);
 	console.log("3");
 }
 function dragStart(event)
